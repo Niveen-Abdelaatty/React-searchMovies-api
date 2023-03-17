@@ -1,7 +1,7 @@
 import { useState } from 'react';
 
 // a component to get the search term from the user
-function Form({ getMovie }) {
+function Form({ getMovie, setMovie }) {
   // creating state to track our form value
   const [formData, setFormData] = useState({ searchTerm: '' });
 
@@ -12,12 +12,13 @@ function Form({ getMovie }) {
   };
 
   // handleSubmit function that passes the formData to getMovie via the moviesearch prop
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    
+
     console.log(formData.searchTerm);
 
-    getMovie(formData.searchTerm);
+    const data = await getMovie(formData.searchTerm);
+    setMovie(data);
   };
 
   return (
