@@ -4,16 +4,27 @@ import Form from './components/Form';
 import MovieDisplay from './components/MovieDisplay';
 
 function App() {
+  // variable with your apiKey
+  const apiKey = "98e3fb1f";
+
+  // state to hold movie data
   const [ movies, setMovies ] = useState(null);
 
-  const searchMovies = (e) => {
+  // function that is given the search term then does the fetch request for the movie data and stores it in state
+  const getMovie = async (searchTerm) => {
     e.preventDefault();
-    console.log(e.target.value);
+    const savedMovies = await fetch(`http://www.omdbapi.com/?apikey=${apiKey}&t=${searchTerm}`);
+
+    // parse JSON response into a javascript object
+    const data = savedMovies.json();
+
+    // set the Movie state to the movie
+    setMovies(data);
   };
 
   return (
     <div className='App'>
-      <Form searchMovies={searchMovies} />
+      <Form getMovie={getMovie} />
       <MovieDisplay />
     </div>
   );
