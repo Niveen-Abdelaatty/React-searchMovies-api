@@ -7,7 +7,6 @@ function Form({ getMovie }) {
 
   // handleChange - updates formData when we type into form
   const handleChange = (e) => {
-    e.preventDefault();
     // use the event object to detect key and value to update
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
@@ -15,10 +14,12 @@ function Form({ getMovie }) {
   // handleSubmit function that passes the formData to getMovie via the moviesearch prop
   const handleSubmit = (e) => {
     e.preventDefault();
+    
+    console.log(formData.searchTerm);
 
     getMovie(formData.searchTerm);
   };
-  
+
   return (
     <div>
       <form onSubmit={handleSubmit}>

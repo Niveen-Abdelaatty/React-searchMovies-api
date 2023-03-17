@@ -8,24 +8,26 @@ function App() {
   const apiKey = "98e3fb1f";
 
   // state to hold movie data
-  const [ movies, setMovies ] = useState(null);
+  const [ movie, setMovie ] = useState(null);
 
   // function that is given the search term then does the fetch request for the movie data and stores it in state
   const getMovie = async (searchTerm) => {
-    e.preventDefault();
+
     const savedMovies = await fetch(`http://www.omdbapi.com/?apikey=${apiKey}&t=${searchTerm}`);
 
     // parse JSON response into a javascript object
-    const data = savedMovies.json();
+    const data = await savedMovies.json();
+
+    console.log(data);
 
     // set the Movie state to the movie
-    setMovies(data);
+    setMovie(data);
   };
 
   return (
     <div className='App'>
       <Form getMovie={getMovie} />
-      <MovieDisplay />
+      <MovieDisplay movie={movie} />
     </div>
   );
 }
